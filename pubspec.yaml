@@ -11,13 +11,13 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   get_storage: ^2.0.3
-  intl: ^0.17.0
-  url_launcher: 6.0.20
-  connectivity_plus: ^2.3.0
+  intl: ^0.18.0
+  url_launcher: ^6.1.10
+  connectivity_plus: ^3.0.3
   oktoast: ^3.1.0
   store_redirect: ^2.0.1
-  in_app_review: ^2.0.4
-  timeago: ^3.3.0
+  in_app_review: ^2.0.6
+  timeago: ^3.4.0
   google_mobile_ads: ^2.3.0
   native_ads_flutter: ^1.0.7
   cached_network_image: ^3.2.0
@@ -35,7 +35,6 @@ flutter:
 
   # To add assets to your package, add an assets section, like this:
   assets:
-    - assets/svg/
     - assets/png/
   #
   # For details regarding assets in packages, see
