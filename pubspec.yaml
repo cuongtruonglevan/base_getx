@@ -17,7 +17,7 @@ dependencies:
   oktoast: ^3.1.0
   store_redirect: ^2.0.1
   in_app_review: ^2.0.6
-  timeago: ^3.4.0
+  timeago: ^3.3.0
   google_mobile_ads: ^2.3.0
   native_ads_flutter: ^1.0.7
   cached_network_image: ^3.2.0
