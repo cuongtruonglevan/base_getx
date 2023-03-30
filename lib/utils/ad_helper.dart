@@ -57,8 +57,8 @@ class AdHelper {
     }
   }
 
-  static void initialize() {
-    MobileAds.instance.initialize();
+  static Future initialize() async {
+    await MobileAds.instance.initialize();
   }
 }
 
