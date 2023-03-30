@@ -70,12 +70,6 @@ class BaseController extends GetxController
     createInterstitialAd();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    // loadAd();
-  }
-
   // void loadAd() async {
   //   await _anchoredAdaptiveAd?.dispose();
   //   _anchoredAdaptiveAd = null;
@@ -85,7 +79,7 @@ class BaseController extends GetxController
   //       await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
   //           MediaQuery.of(Get.context!).size.width.truncate());
   //   if (size == null) {
-  //     print('Unable to get height of anchored banner.');
+  //     debugPrint('Unable to get height of anchored banner.');
   //     return;
   //   }
   //   _anchoredAdaptiveAd = BannerAd(
@@ -162,19 +156,19 @@ class BaseController extends GetxController
     }
   }
 
-  void createInterstitialAd() {
-    InterstitialAd.load(
+  Future createInterstitialAd() async {
+    await InterstitialAd.load(
         adUnitId: AdHelper().interAdUnitId,
         request: request,
         adLoadCallback: InterstitialAdLoadCallback(
           onAdLoaded: (InterstitialAd ad) {
-            print('$ad loaded');
+            debugPrint('$ad loaded');
             interstitialAd = ad;
             _numInterstitialLoadAttempts = 0;
             interstitialAd!.setImmersiveMode(true);
           },
           onAdFailedToLoad: (LoadAdError error) {
-            print('InterstitialAd failed to load: $error.');
+            debugPrint('InterstitialAd failed to load: $error.');
             _numInterstitialLoadAttempts += 1;
             interstitialAd = null;
             if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
@@ -186,24 +180,24 @@ class BaseController extends GetxController
 
   Future<void> showInterstitialAd({FullScreenContentCallback? callBack}) async {
     if (interstitialAd == null) {
-      print('Warning: attempt to show interstitial before loaded.');
+      debugPrint('Warning: attempt to show interstitial before loaded.');
       return;
     }
     interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (InterstitialAd ad) {
-        print('ad onAdShowedFullScreenContent.');
+        debugPrint('ad onAdShowedFullScreenContent.');
         if (callBack?.onAdShowedFullScreenContent != null) {
           callBack!.onAdShowedFullScreenContent!(ad);
         }
       },
       onAdImpression: (InterstitialAd? ad) {
-        print('ad onAdImpression.');
+        debugPrint('ad onAdImpression.');
         if (callBack?.onAdImpression != null) {
           callBack!.onAdImpression!(ad);
         }
       },
       onAdClicked: (InterstitialAd? ad) {
-        print('ad onAdClicked.');
+        debugPrint('ad onAdClicked.');
         if (callBack?.onAdClicked != null) {
           callBack!.onAdClicked!(ad);
         }
@@ -212,7 +206,7 @@ class BaseController extends GetxController
         if (callBack?.onAdDismissedFullScreenContent != null) {
           callBack!.onAdDismissedFullScreenContent!(ad);
         }
-        print('$ad onAdDismissedFullScreenContent.');
+        debugPrint('$ad onAdDismissedFullScreenContent.');
         ad.dispose();
         createInterstitialAd();
       },
@@ -220,7 +214,7 @@ class BaseController extends GetxController
         if (callBack?.onAdFailedToShowFullScreenContent != null) {
           callBack!.onAdFailedToShowFullScreenContent!(ad, error);
         }
-        print('$ad onAdFailedToShowFullScreenContent: $error');
+        debugPrint('$ad onAdFailedToShowFullScreenContent: $error');
         ad.dispose();
         createInterstitialAd();
       },
